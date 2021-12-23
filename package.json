@@ -1,0 +1,34 @@
+{
+  "name": "traceability_backend",
+  "version": "1.0.0",
+  "description": "An backend API for Traceability Systems developed by PT Sahabat Laut Lestari",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahabatlautlestari/traceability_backend.git"
+  },
+  "author": "I Wayan Jepriana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sahabatlautlestari/traceability_backend/issues"
+  },
+  "homepage": "https://github.com/sahabatlautlestari/traceability_backend#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.1",
+    "@hapi/inert": "^6.0.4",
+    "@hapi/jwt": "^2.1.0",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "joi": "^17.5.0",
+    "nanoid": "^3.1.30"
+  },
+  "devDependencies": {
+    "eslint": "^8.5.0",
+    "nodemon": "^2.0.15"
+  }
+}
