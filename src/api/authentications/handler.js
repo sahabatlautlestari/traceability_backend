@@ -49,7 +49,7 @@ class AuthenticationsHandler {
       // Server ERROR!
       const response = h.response({
         status: 'error',
-        message: 'Maaf, terjadi kegagalan pada server kami.',
+        message: 'Sorry, there was a failure on our server.',
       });
       response.code(500);
       console.error(error);
@@ -86,7 +86,7 @@ class AuthenticationsHandler {
       // Server ERROR!
       const response = h.response({
         status: 'error',
-        message: 'Maaf, terjadi kegagalan pada server kami.',
+        message: 'Sorry, there was a failure on our server.',
       });
       response.code(500);
       console.error(error);
@@ -118,7 +118,7 @@ class AuthenticationsHandler {
       // Server ERROR!
       const response = h.response({
         status: 'error',
-        message: 'Maaf, terjadi kegagalan pada server kami.',
+        message: 'Sorry, there was a failure on our server.',
       });
       response.code(500);
       console.error(error);

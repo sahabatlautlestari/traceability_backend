@@ -10,6 +10,11 @@ const users = require('./api/users');
 const UsersService = require('./services/mysql/UsersService');
 const UsersValidator = require('./validator/users');
 
+// Buyers
+const buyers = require('./api/buyers');
+const BuyersService = require('./services/mysql/BuyersService');
+const BuyersValidator = require('./validator/buyers');
+
 // Authentications
 const authentications = require('./api/authentications');
 const AuthenticationsService = require('./services/mysql/AuthenticationsService');
@@ -20,6 +25,7 @@ const init = async () => {
   // Services initialization
   
   const usersService = new UsersService();
+  const buyersService = new BuyersService();
   const authenticationsService = new AuthenticationsService();
 
   const server = Hapi.server({
@@ -66,6 +72,13 @@ const init = async () => {
       options: {
         service: usersService,
         validator: UsersValidator,
+      },
+    },
+    {
+      plugin: buyers,
+      options: {
+        service: buyersService,
+        validator: BuyersValidator,
       },
     },
     {
