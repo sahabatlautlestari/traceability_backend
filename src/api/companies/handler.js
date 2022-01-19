@@ -1,34 +1,34 @@
 const ClientError = require('../../exceptions/ClientError');
 
 /* eslint-disable no-underscore-dangle */
-class BuyersHandler {
+class CompaniesHandler {
   constructor(service, validator) {
     this._service = service;
     this._validator = validator;
 
-    this.postBuyerHandler = this.postBuyerHandler.bind(this);
-    this.getBuyersHandler = this.getBuyersHandler.bind(this);
-    this.getBuyersByBuyerCodeHandler = this.getBuyersByBuyerCodeHandler.bind(this);
-    this.getBuyerByIdHandler = this.getBuyerByIdHandler.bind(this);
-    this.putBuyerByIdHandler = this.putBuyerByIdHandler.bind(this);
-    this.deleteBuyerByIdHandler = this.deleteBuyerByIdHandler.bind(this);
+    this.postCompanyHandler = this.postCompanyHandler.bind(this);
+    this.getCompaniesHandler = this.getCompaniesHandler.bind(this);
+    this.getCompaniesByCompanyCodeHandler = this.getCompaniesByCompanyCodeHandler.bind(this);
+    this.getCompanyByIdHandler = this.getCompanyByIdHandler.bind(this);
+    this.putCompanyByIdHandler = this.putCompanyByIdHandler.bind(this);
+    this.deleteCompanyByIdHandler = this.deleteCompanyByIdHandler.bind(this);
   }
 
-  async postBuyerHandler(request, h) {
+  async postCompanyHandler(request, h) {
     try {
-      this._validator.validateBuyerPayload(request.payload);
-      const { buyerCode, buyerName, location } = request.payload;
+      this._validator.validateCompanyPayload(request.payload);
+      const { companyCode, companyName, location } = request.payload;
       //const { id: credentialId } = request.auth.credentials;
 
-      const buyerId = await this._service.addBuyer({
-        buyerCode, buyerName, location,
+      const companyId = await this._service.addCompany({
+        companyCode, companyName, location,
       });
 
       const response = h.response({
         status: 'success',
-        message: 'Buyer added successfully',
+        message: 'Company added successfully',
         data: {
-          buyerId,
+          companyId,
         },
       });
 
@@ -55,29 +55,29 @@ class BuyersHandler {
     }
   }
 
-  async getBuyersHandler(request) {
+  async getCompaniesHandler(request) {
     //const { id: credentialId } = request.auth.credentials;
-    const buyers = await this._service.getBuyers();
+    const companies = await this._service.getCompanies();
     return {
       status: 'success',
       data: {
-        buyers,
+        companies,
       },
     };
   }
 
-  async getBuyerByIdHandler(request, h) {
+  async getCompanyByIdHandler(request, h) {
     try {
       const { id } = request.params;
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyerAccess(id, credentialId);
-      const buyer = await this._service.getBuyerById(id);
+      //await this._service.verifyCompanyAccess(id, credentialId);
+      const company = await this._service.getCompanyById(id);
 
       return {
         status: 'success',
         data: {
-          buyer,
+          company,
         },
       };
     } catch (error) {
@@ -101,18 +101,18 @@ class BuyersHandler {
     }
   }
   
-  async getBuyersByBuyerCodeHandler(request, h) {
+  async getCompaniesByCompanyCodeHandler(request, h) {
     try {
-      const {buyerCode = ''} = request.params || request.query;
+      const { companyCode = '' } = request.query || request.params;
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyersAccess(id, credentialId);
-      const buyers = await this._service.getBuyersByBuyerCode(buyerCode);
+      //await this._service.verifyCompaniesAccess(id, credentialId);
+      const companies = await this._service.getCompaniesByCompanyCode(companyCode);
 
       return {
         status: 'success',
         data: {
-          buyers,
+          companies,
         },
       };
     } catch (error) {
@@ -136,18 +136,18 @@ class BuyersHandler {
     }
   }
 
-  async putBuyerByIdHandler(request, h) {
+  async putCompanyByIdHandler(request, h) {
     try {
-      this._validator.validateBuyerPayload(request.payload);
+      this._validator.validateCompanyPayload(request.payload);
       const { id } = request.params;
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyerAccess(id, credentialId);
-      await this._service.editBuyerById(id, request.payload);
+      //await this._service.verifyCompanyAccess(id, credentialId);
+      await this._service.editCompanyById(id, request.payload);
 
       return {
         status: 'success',
-        message: 'Buyer successfully updated',
+        message: 'Company successfully updated',
       };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -170,18 +170,18 @@ class BuyersHandler {
     }
   }
 
-  async deleteBuyerByIdHandler(request, h) {
+  async deleteCompanyByIdHandler(request, h) {
     try {
       const { id } = request.params;
 
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyerOwner(id, credentialId);
-      await this._service.deleteBuyerById(id);
+      //await this._service.verifyCompanyOwner(id, credentialId);
+      await this._service.deleteCompanyById(id);
 
       return {
         status: 'success',
-        message: 'Buyer successfully deleted',
+        message: 'Company successfully deleted',
       };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -205,4 +205,4 @@ class BuyersHandler {
   }
 }
 
-module.exports = BuyersHandler;
+module.exports = CompaniesHandler;

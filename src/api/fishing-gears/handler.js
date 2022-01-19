@@ -1,34 +1,34 @@
 const ClientError = require('../../exceptions/ClientError');
 
 /* eslint-disable no-underscore-dangle */
-class BuyersHandler {
+class FishingGearsHandler {
   constructor(service, validator) {
     this._service = service;
     this._validator = validator;
 
-    this.postBuyerHandler = this.postBuyerHandler.bind(this);
-    this.getBuyersHandler = this.getBuyersHandler.bind(this);
-    this.getBuyersByBuyerCodeHandler = this.getBuyersByBuyerCodeHandler.bind(this);
-    this.getBuyerByIdHandler = this.getBuyerByIdHandler.bind(this);
-    this.putBuyerByIdHandler = this.putBuyerByIdHandler.bind(this);
-    this.deleteBuyerByIdHandler = this.deleteBuyerByIdHandler.bind(this);
+    this.postFishingGearHandler = this.postFishingGearHandler.bind(this);
+    this.getFishingGearsHandler = this.getFishingGearsHandler.bind(this);
+    this.getFishingGearsByFishingGearCodeHandler = this.getFishingGearsByFishingGearCodeHandler.bind(this);
+    this.getFishingGearByIdHandler = this.getFishingGearByIdHandler.bind(this);
+    this.putFishingGearByIdHandler = this.putFishingGearByIdHandler.bind(this);
+    this.deleteFishingGearByIdHandler = this.deleteFishingGearByIdHandler.bind(this);
   }
 
-  async postBuyerHandler(request, h) {
+  async postFishingGearHandler(request, h) {
     try {
-      this._validator.validateBuyerPayload(request.payload);
-      const { buyerCode, buyerName, location } = request.payload;
+      this._validator.validateFishingGearPayload(request.payload);
+      const { fishingGearCode, fishingGearName } = request.payload;
       //const { id: credentialId } = request.auth.credentials;
 
-      const buyerId = await this._service.addBuyer({
-        buyerCode, buyerName, location,
+      const fishingGearId = await this._service.addFishingGear({
+        fishingGearCode, fishingGearName,
       });
 
       const response = h.response({
         status: 'success',
-        message: 'Buyer added successfully',
+        message: 'Fishing Gear added successfully',
         data: {
-          buyerId,
+          fishingGearId,
         },
       });
 
@@ -55,29 +55,29 @@ class BuyersHandler {
     }
   }
 
-  async getBuyersHandler(request) {
+  async getFishingGearsHandler(request) {
     //const { id: credentialId } = request.auth.credentials;
-    const buyers = await this._service.getBuyers();
+    const fishingGears = await this._service.getFishingGears();
     return {
       status: 'success',
       data: {
-        buyers,
+        fishingGears,
       },
     };
   }
 
-  async getBuyerByIdHandler(request, h) {
+  async getFishingGearByIdHandler(request, h) {
     try {
       const { id } = request.params;
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyerAccess(id, credentialId);
-      const buyer = await this._service.getBuyerById(id);
+      //await this._service.verifyFishingGearAccess(id, credentialId);
+      const fishingGear = await this._service.getFishingGearById(id);
 
       return {
         status: 'success',
         data: {
-          buyer,
+          fishingGear,
         },
       };
     } catch (error) {
@@ -101,18 +101,18 @@ class BuyersHandler {
     }
   }
   
-  async getBuyersByBuyerCodeHandler(request, h) {
+  async getFishingGearsByFishingGearCodeHandler(request, h) {
     try {
-      const {buyerCode = ''} = request.params || request.query;
+      const { fishingGearCode = '' } = request.params || request.query;
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyersAccess(id, credentialId);
-      const buyers = await this._service.getBuyersByBuyerCode(buyerCode);
+      //await this._service.verifyFishingGearsAccess(id, credentialId);
+      const fishingGears = await this._service.getFishingGearsByFishingGearCode(fishingGearCode);
 
       return {
         status: 'success',
         data: {
-          buyers,
+          fishingGears,
         },
       };
     } catch (error) {
@@ -136,18 +136,18 @@ class BuyersHandler {
     }
   }
 
-  async putBuyerByIdHandler(request, h) {
+  async putFishingGearByIdHandler(request, h) {
     try {
-      this._validator.validateBuyerPayload(request.payload);
+      this._validator.validateFishingGearPayload(request.payload);
       const { id } = request.params;
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyerAccess(id, credentialId);
-      await this._service.editBuyerById(id, request.payload);
+      //await this._service.verifyFishingGearAccess(id, credentialId);
+      await this._service.editFishingGearById(id, request.payload);
 
       return {
         status: 'success',
-        message: 'Buyer successfully updated',
+        message: 'Fishing Gear successfully updated',
       };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -170,18 +170,18 @@ class BuyersHandler {
     }
   }
 
-  async deleteBuyerByIdHandler(request, h) {
+  async deleteFishingGearByIdHandler(request, h) {
     try {
       const { id } = request.params;
 
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyerOwner(id, credentialId);
-      await this._service.deleteBuyerById(id);
+      //await this._service.verifyFishingGearOwner(id, credentialId);
+      await this._service.deleteFishingGearById(id);
 
       return {
         status: 'success',
-        message: 'Buyer successfully deleted',
+        message: 'Fishing Gear successfully deleted',
       };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -205,4 +205,4 @@ class BuyersHandler {
   }
 }
 
-module.exports = BuyersHandler;
+module.exports = FishingGearsHandler;

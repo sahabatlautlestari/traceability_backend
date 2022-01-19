@@ -15,6 +15,21 @@ const buyers = require('./api/buyers');
 const BuyersService = require('./services/mysql/BuyersService');
 const BuyersValidator = require('./validator/buyers');
 
+// Companies
+const companies = require('./api/companies');
+const CompaniesService = require('./services/mysql/CompaniesService');
+const CompaniesValidator = require('./validator/companies');
+
+// Fishing Gears
+const fishingGears = require('./api/fishing-gears');
+const FishingGearsService = require('./services/mysql/FishingGearsService');
+const FishingGearsValidator = require('./validator/fishing-gears');
+
+// Ports
+const ports = require('./api/ports');
+const PortsService = require('./services/mysql/PortsService');
+const PortsValidator = require('./validator/ports');
+
 // Authentications
 const authentications = require('./api/authentications');
 const AuthenticationsService = require('./services/mysql/AuthenticationsService');
@@ -26,6 +41,9 @@ const init = async () => {
   
   const usersService = new UsersService();
   const buyersService = new BuyersService();
+  const companiesService = new CompaniesService();
+  const fishingGearsService = new FishingGearsService();
+  const portsService = new PortsService();
   const authenticationsService = new AuthenticationsService();
 
   const server = Hapi.server({
@@ -79,6 +97,27 @@ const init = async () => {
       options: {
         service: buyersService,
         validator: BuyersValidator,
+      },
+    },
+    {
+      plugin: companies,
+      options: {
+        service: companiesService,
+        validator: CompaniesValidator,
+      },
+    },
+    {
+      plugin: fishingGears,
+      options: {
+        service: fishingGearsService,
+        validator: FishingGearsValidator,
+      },
+    },
+    {
+      plugin: ports,
+      options: {
+        service: portsService,
+        validator: PortsValidator,
       },
     },
     {

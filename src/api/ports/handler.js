@@ -1,34 +1,34 @@
 const ClientError = require('../../exceptions/ClientError');
 
 /* eslint-disable no-underscore-dangle */
-class BuyersHandler {
+class PortsHandler {
   constructor(service, validator) {
     this._service = service;
     this._validator = validator;
 
-    this.postBuyerHandler = this.postBuyerHandler.bind(this);
-    this.getBuyersHandler = this.getBuyersHandler.bind(this);
-    this.getBuyersByBuyerCodeHandler = this.getBuyersByBuyerCodeHandler.bind(this);
-    this.getBuyerByIdHandler = this.getBuyerByIdHandler.bind(this);
-    this.putBuyerByIdHandler = this.putBuyerByIdHandler.bind(this);
-    this.deleteBuyerByIdHandler = this.deleteBuyerByIdHandler.bind(this);
+    this.postPortHandler = this.postPortHandler.bind(this);
+    this.getPortsHandler = this.getPortsHandler.bind(this);
+    this.getPortsByPortCodeHandler = this.getPortsByPortCodeHandler.bind(this);
+    this.getPortByIdHandler = this.getPortByIdHandler.bind(this);
+    this.putPortByIdHandler = this.putPortByIdHandler.bind(this);
+    this.deletePortByIdHandler = this.deletePortByIdHandler.bind(this);
   }
 
-  async postBuyerHandler(request, h) {
+  async postPortHandler(request, h) {
     try {
-      this._validator.validateBuyerPayload(request.payload);
-      const { buyerCode, buyerName, location } = request.payload;
+      this._validator.validatePortPayload(request.payload);
+      const { portCode, portName, location } = request.payload;
       //const { id: credentialId } = request.auth.credentials;
 
-      const buyerId = await this._service.addBuyer({
-        buyerCode, buyerName, location,
+      const portId = await this._service.addPort({
+        portCode, portName, location,
       });
 
       const response = h.response({
         status: 'success',
-        message: 'Buyer added successfully',
+        message: 'Port added successfully',
         data: {
-          buyerId,
+          portId,
         },
       });
 
@@ -55,29 +55,29 @@ class BuyersHandler {
     }
   }
 
-  async getBuyersHandler(request) {
+  async getPortsHandler(request) {
     //const { id: credentialId } = request.auth.credentials;
-    const buyers = await this._service.getBuyers();
+    const ports = await this._service.getPorts();
     return {
       status: 'success',
       data: {
-        buyers,
+        ports,
       },
     };
   }
 
-  async getBuyerByIdHandler(request, h) {
+  async getPortByIdHandler(request, h) {
     try {
       const { id } = request.params;
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyerAccess(id, credentialId);
-      const buyer = await this._service.getBuyerById(id);
+      //await this._service.verifyPortAccess(id, credentialId);
+      const port = await this._service.getPortById(id);
 
       return {
         status: 'success',
         data: {
-          buyer,
+          port,
         },
       };
     } catch (error) {
@@ -101,18 +101,18 @@ class BuyersHandler {
     }
   }
   
-  async getBuyersByBuyerCodeHandler(request, h) {
+  async getPortsByPortCodeHandler(request, h) {
     try {
-      const {buyerCode = ''} = request.params || request.query;
+      const {portCode = ''} = request.params || request.query;
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyersAccess(id, credentialId);
-      const buyers = await this._service.getBuyersByBuyerCode(buyerCode);
+      //await this._service.verifyPortsAccess(id, credentialId);
+      const ports = await this._service.getPortsByPortCode(portCode);
 
       return {
         status: 'success',
         data: {
-          buyers,
+          ports,
         },
       };
     } catch (error) {
@@ -136,18 +136,18 @@ class BuyersHandler {
     }
   }
 
-  async putBuyerByIdHandler(request, h) {
+  async putPortByIdHandler(request, h) {
     try {
-      this._validator.validateBuyerPayload(request.payload);
+      this._validator.validatePortPayload(request.payload);
       const { id } = request.params;
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyerAccess(id, credentialId);
-      await this._service.editBuyerById(id, request.payload);
+      //await this._service.verifyPortAccess(id, credentialId);
+      await this._service.editPortById(id, request.payload);
 
       return {
         status: 'success',
-        message: 'Buyer successfully updated',
+        message: 'Port successfully updated',
       };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -170,18 +170,18 @@ class BuyersHandler {
     }
   }
 
-  async deleteBuyerByIdHandler(request, h) {
+  async deletePortByIdHandler(request, h) {
     try {
       const { id } = request.params;
 
       //const { id: credentialId } = request.auth.credentials;
 
-      //await this._service.verifyBuyerOwner(id, credentialId);
-      await this._service.deleteBuyerById(id);
+      //await this._service.verifyPortOwner(id, credentialId);
+      await this._service.deletePortById(id);
 
       return {
         status: 'success',
-        message: 'Buyer successfully deleted',
+        message: 'Port successfully deleted',
       };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -205,4 +205,4 @@ class BuyersHandler {
   }
 }
 
-module.exports = BuyersHandler;
+module.exports = PortsHandler;

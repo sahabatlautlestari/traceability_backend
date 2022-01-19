@@ -9,11 +9,11 @@ class BuyersService {
     this._pool = pool;
   }
 
-  async addBuyer({ idbuyer, buyername, location }) {
-    await this.verifyNewBuyerId(idbuyer);
+  async addBuyer({ buyerCode, buyerName, location }) {
+    await this.verifyNewBuyerCode(buyerCode);
 
     const [result] = await this._pool.query('INSERT INTO mbuyer (idbuyer, buyername, location) VALUES (?, ?, GeomFromText(?))',
-    [idbuyer, buyername, `POINT(${location.x} ${location.y})`]);
+    [buyerCode, buyerName, `POINT(${location.latitude} ${location.longitude})`]);
     
     if (!result) {
       throw new InvariantError('Failed to save new buyer');
@@ -21,19 +21,19 @@ class BuyersService {
     return result.insertId;
   }
 
-  async verifyNewBuyerId(idbuyer) {
+  async verifyNewBuyerCode(buyerCode) {
 
-    const [rows] = await this._pool.query('SELECT idbuyer FROM mbuyer WHERE idbuyer = ?', [idbuyer]);
+    const [rows] = await this._pool.query('SELECT idbuyer FROM mbuyer WHERE idbuyer = ?', [buyerCode]);
     
     if(rows.length > 0) {
-      throw new InvariantError('Failed to add buyer. Buyer ID already used.')
+      throw new InvariantError('Failed to add buyer. Buyer Code already used.')
     };
   }
 
-  async editBuyerById(id, {idbuyer, buyername, location }) {
+  async editBuyerById(id, {buyerCode, buyerName, location }) {
 
     const [result] = await this._pool.query('UPDATE mbuyer SET idbuyer = ?, buyername = ?, location = GeomFromText(?) WHERE id = ?',
-    [idbuyer, buyername, `POINT(${location.x} ${location.y})`, id]);
+    [buyerCode, buyerName, `POINT(${location.latitude} ${location.longitude})`, id]);
 
     if (result.affectedRows === 0) {
       throw new InvariantError('Failed to update buyer. ID not found.');
@@ -54,7 +54,7 @@ class BuyersService {
 
   async getBuyers() {
     const [result] = await this._pool.query('SELECT id, idbuyer, buyername, location FROM mbuyer');
-    return result[0].map(mapBuyerToModel);
+    return result.map(mapBuyerToModel);
   }
 
   async getBuyerById(id) {
@@ -67,9 +67,9 @@ class BuyersService {
     return result.map(mapBuyerToModel)[0];
   }
 
-  async getBuyersByBuyerId(buyerId) {
+  async getBuyersByBuyerCode(buyerCode) {
 
-    const [result] = await this._pool.query('SELECT id, idbuyer, buyername, location FROM mbuyer WHERE idbuyer LIKE ?', [`%${buyerId}%`]);
+    const [result] = await this._pool.query('SELECT id, idbuyer, buyername, location FROM mbuyer WHERE idbuyer LIKE ?', [`%${buyerCode}%`]);
     //const mappedResult = result.map(mapBuyerToModel);
     
     return result.map(mapBuyerToModel);

@@ -14,4 +14,44 @@ const mapBuyerToModel = ({
   }
 });
 
-module.exports = {mapBuyerToModel};
+const mapCompanyToModel = ({
+  id,
+  companyid,
+  companyname,
+  location,
+}) => ({
+  id,
+  companyCode: companyid,
+  companyName: companyname,
+  location: {
+    latitude: location.x,
+    longitude: location.y
+  }
+});
+
+const mapFishingGearToModel = ({
+  id,
+  idfishinggear,
+  fishinggear,
+}) => ({
+  id,
+  fishingGearCode: idfishinggear,
+  fishingGearName: fishinggear,
+});
+
+const mapPortToModel = ({
+  id,
+  portid,
+  portname,
+  plocation,
+}) => ({
+  id,
+  portCode: portid,
+  portName: portname,
+  location: {
+    latitude: plocation.x,
+    longitude: plocation.y
+  }
+});
+
+module.exports = {mapBuyerToModel, mapCompanyToModel, mapFishingGearToModel, mapPortToModel};
