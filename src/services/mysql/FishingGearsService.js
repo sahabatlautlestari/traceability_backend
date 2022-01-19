@@ -10,7 +10,7 @@ class FishingGearsService {
   }
 
   async addFishingGear({ fishingGearCode, fishingGearName }) {
-    await this.verifyNewFishingGearCode(idfishinggear);
+    await this.verifyNewFishingGearCode(fishingGearCode);
 
     const [result] = await this._pool.query('INSERT INTO mfishinggear (idfishinggear, fishinggear) VALUES (?, ?)',
     [ fishingGearCode, fishingGearName ]);
@@ -26,7 +26,7 @@ class FishingGearsService {
     const [rows] = await this._pool.query('SELECT idfishinggear FROM mfishinggear WHERE idfishinggear = ?', [fishingGearCode]);
     
     if(rows.length > 0) {
-      throw new InvariantError('Failed to add Fishing Gear. Fishing Gear ID already used.')
+      throw new InvariantError('Failed to add Fishing Gear. Fishing Gear Code already used.')
     };
   }
 
