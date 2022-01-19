@@ -45,6 +45,11 @@ const vessels = require('./api/vessels');
 const VesselsService = require('./services/mysql/VesselsService');
 const VesselsValidator = require('./validator/vessels');
 
+// Spottraces
+const spottraces = require('./api/spottraces');
+const SpottracesService = require('./services/mysql/SpottracesService');
+const SpottracesValidator = require('./validator/spottraces');
+
 // Authentications
 const authentications = require('./api/authentications');
 const AuthenticationsService = require('./services/mysql/AuthenticationsService');
@@ -62,6 +67,7 @@ const init = async () => {
   const speciesService = new SpeciesService();
   const suppliersService = new SuppliersService();
   const vesselsService = new VesselsService();
+  const spottracesService = new SpottracesService();
   const authenticationsService = new AuthenticationsService();
 
   const server = Hapi.server({
@@ -157,6 +163,13 @@ const init = async () => {
       options: {
         service: vesselsService,
         validator: VesselsValidator,
+      },
+    },
+    {
+      plugin: spottraces,
+      options: {
+        service: spottracesService,
+        validator: SpottracesValidator,
       },
     },
     {

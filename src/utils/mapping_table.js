@@ -88,6 +88,38 @@ const mapVesselToModel = ({
   fisherman,
 });
 
+const mapSpottraceToModel = ({
+  id, 
+  id_spot, 
+  unixtime, 
+  esn, 
+  latitude, 
+  longitude, 
+  datetime, 
+  time, 
+  battery_state, 
+  message_type, 
+  message_content, 
+  lokasi, 
+  local_date, 
+  local_time,
+}) => ({
+  id,
+  spotId: id_spot, 
+  unixTime: unixtime, 
+  esn, 
+  latitude, 
+  longitude, 
+  datetime, 
+  time, 
+  batteryState: battery_state, 
+  messageType: message_type, 
+  messageContent: message_content, 
+  location: lokasi, 
+  localDate: local_date, 
+  localTime: local_time,
+});
+
 module.exports = {
   mapBuyerToModel, 
   mapCompanyToModel, 
@@ -96,4 +128,5 @@ module.exports = {
   mapSpeciesToModel,
   mapSupplierToModel,
   mapVesselToModel,
+  mapSpottraceToModel,
 };
