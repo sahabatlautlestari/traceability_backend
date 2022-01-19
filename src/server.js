@@ -50,6 +50,11 @@ const spottraces = require('./api/spottraces');
 const SpottracesService = require('./services/mysql/SpottracesService');
 const SpottracesValidator = require('./validator/spottraces');
 
+// CatchFish
+const catchfish = require('./api/catch-fish');
+const CatchFishService = require('./services/mysql/CatchFishService');
+const CatchFishValidator = require('./validator/catch-fish');
+
 // Authentications
 const authentications = require('./api/authentications');
 const AuthenticationsService = require('./services/mysql/AuthenticationsService');
@@ -68,6 +73,7 @@ const init = async () => {
   const suppliersService = new SuppliersService();
   const vesselsService = new VesselsService();
   const spottracesService = new SpottracesService();
+  const catchFishService = new CatchFishService();
   const authenticationsService = new AuthenticationsService();
 
   const server = Hapi.server({
@@ -170,6 +176,13 @@ const init = async () => {
       options: {
         service: spottracesService,
         validator: SpottracesValidator,
+      },
+    },
+    {
+      plugin: catchfish,
+      options: {
+        service: catchFishService,
+        validator: CatchFishValidator,
       },
     },
     {

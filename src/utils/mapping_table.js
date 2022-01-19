@@ -120,6 +120,24 @@ const mapSpottraceToModel = ({
   localTime: local_time,
 });
 
+const mapCatchFishToModel = ({
+  id, 
+  idfish, 
+  clocation, 
+  cdatetime, 
+  vesselid, 
+  idfishinggear, 
+  idspecies,
+}) => ({
+  id,
+  fishCode: idfish, 
+  location: clocation, 
+  datetime: cdatetime, 
+  cesselCode: vesselid, 
+  fishingGearCode: idfishinggear, 
+  speciesCode: idspecies,
+});
+
 module.exports = {
   mapBuyerToModel, 
   mapCompanyToModel, 
@@ -129,4 +147,5 @@ module.exports = {
   mapSupplierToModel,
   mapVesselToModel,
   mapSpottraceToModel,
+  mapCatchFishToModel,
 };
