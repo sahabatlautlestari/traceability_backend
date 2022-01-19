@@ -67,9 +67,9 @@ class FishingGearsService {
     return result.map(mapFishingGearToModel)[0];
   }
 
-  async getFishingGearsByFishingGearCode(idfishinggear) {
+  async getFishingGearsByFishingGearCode(fishingGearCode) {
 
-    const [result] = await this._pool.query('SELECT id, idfishinggear, fishinggear FROM mfishinggear WHERE idfishinggear LIKE ?', [`%${idfishinggear}%`]);
+    const [result] = await this._pool.query('SELECT id, idfishinggear, fishinggear FROM mfishinggear WHERE idfishinggear LIKE ?', [`%${fishingGearCode}%`]);
     //const mappedResult = result.map(mapFishingGearToModel);
     
     return result.map(mapFishingGearToModel);

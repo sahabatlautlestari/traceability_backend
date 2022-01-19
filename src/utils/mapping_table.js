@@ -64,10 +64,36 @@ const mapSpeciesToModel = ({
   speciesName: species,
 });
 
+const mapSupplierToModel = ({
+  id,
+  supplierid,
+  suppliername,
+}) => ({
+  id,
+  supplierCode: supplierid,
+  supplierName: suppliername,
+});
+
+const mapVesselToModel = ({
+  id,
+  vesselid,
+  vesselname,
+  vesselsize,
+  fisherman,
+}) => ({
+  id,
+  vesselCode: vesselid,
+  vesselName: vesselname,
+  vesselSize: vesselsize,
+  fisherman,
+});
+
 module.exports = {
   mapBuyerToModel, 
   mapCompanyToModel, 
   mapFishingGearToModel, 
   mapPortToModel, 
-  mapSpeciesToModel
+  mapSpeciesToModel,
+  mapSupplierToModel,
+  mapVesselToModel,
 };

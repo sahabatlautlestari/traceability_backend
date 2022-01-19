@@ -35,6 +35,16 @@ const species = require('./api/species');
 const SpeciesService = require('./services/mysql/SpeciesService');
 const SpeciesValidator = require('./validator/species');
 
+// Suppliers
+const suppliers = require('./api/suppliers');
+const SuppliersService = require('./services/mysql/SuppliersService');
+const SuppliersValidator = require('./validator/suppliers');
+
+// Vessels
+const vessels = require('./api/vessels');
+const VesselsService = require('./services/mysql/VesselsService');
+const VesselsValidator = require('./validator/vessels');
+
 // Authentications
 const authentications = require('./api/authentications');
 const AuthenticationsService = require('./services/mysql/AuthenticationsService');
@@ -50,6 +60,8 @@ const init = async () => {
   const fishingGearsService = new FishingGearsService();
   const portsService = new PortsService();
   const speciesService = new SpeciesService();
+  const suppliersService = new SuppliersService();
+  const vesselsService = new VesselsService();
   const authenticationsService = new AuthenticationsService();
 
   const server = Hapi.server({
@@ -131,6 +143,20 @@ const init = async () => {
       options: {
         service: speciesService,
         validator: SpeciesValidator,
+      },
+    },
+    {
+      plugin: suppliers,
+      options: {
+        service: suppliersService,
+        validator: SuppliersValidator,
+      },
+    },
+    {
+      plugin: vessels,
+      options: {
+        service: vesselsService,
+        validator: VesselsValidator,
       },
     },
     {
