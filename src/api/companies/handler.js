@@ -103,7 +103,7 @@ class CompaniesHandler {
   
   async getCompaniesByCompanyCodeHandler(request, h) {
     try {
-      const { companyCode = '' } = request.query || request.params;
+      const companyCode = request.query.companyCode || request.params.companyCode || '';
       //const { id: credentialId } = request.auth.credentials;
 
       //await this._service.verifyCompaniesAccess(id, credentialId);

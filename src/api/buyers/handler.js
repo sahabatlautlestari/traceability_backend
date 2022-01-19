@@ -103,7 +103,7 @@ class BuyersHandler {
   
   async getBuyersByBuyerCodeHandler(request, h) {
     try {
-      const {buyerCode = ''} = request.params || request.query;
+      const buyerCode = request.params.buyerCode || request.query.buyerCode || '';
       //const { id: credentialId } = request.auth.credentials;
 
       //await this._service.verifyBuyersAccess(id, credentialId);

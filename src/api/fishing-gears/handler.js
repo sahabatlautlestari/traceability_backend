@@ -103,7 +103,7 @@ class FishingGearsHandler {
   
   async getFishingGearsByFishingGearCodeHandler(request, h) {
     try {
-      const { fishingGearCode = '' } = request.params || request.query;
+      const fishingGearCode = request.params.fishingGearCode || request.query.fishingGearCode || '';
       //const { id: credentialId } = request.auth.credentials;
 
       //await this._service.verifyFishingGearsAccess(id, credentialId);

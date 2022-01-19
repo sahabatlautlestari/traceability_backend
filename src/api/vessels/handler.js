@@ -103,11 +103,11 @@ class VesselsHandler {
   
   async getVesselsByVesselCodeHandler(request, h) {
     try {
-      const { VesselCode = '' } = request.params || request.query;
+      const vesselCode = request.params.vesselCode || request.query.vesselCode || '';
       //const { id: credentialId } = request.auth.credentials;
 
       //await this._service.verifyVesselsAccess(id, credentialId);
-      const vessels = await this._service.getVesselsByVesselCode(VesselCode);
+      const vessels = await this._service.getVesselsByVesselCode(vesselCode);
 
       return {
         status: 'success',

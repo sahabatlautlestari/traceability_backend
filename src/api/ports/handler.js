@@ -103,7 +103,7 @@ class PortsHandler {
   
   async getPortsByPortCodeHandler(request, h) {
     try {
-      const {portCode = ''} = request.params || request.query;
+      const portCode = request.params.portCode || request.query.portCode || '';
       //const { id: credentialId } = request.auth.credentials;
 
       //await this._service.verifyPortsAccess(id, credentialId);

@@ -103,7 +103,7 @@ class SpeciesHandler {
   
   async getSpeciesBySpeciesCodeHandler(request, h) {
     try {
-      const { speciesCode = '' } = request.params || request.query;
+      const speciesCode = request.params.speciesCode || request.query.speciesCode || '';
       //const { id: credentialId } = request.auth.credentials;
 
       //await this._service.verifySpeciesAccess(id, credentialId);

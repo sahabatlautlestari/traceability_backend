@@ -103,7 +103,7 @@ class SuppliersHandler {
   
   async getSuppliersBySupplierCodeHandler(request, h) {
     try {
-      const { supplierCode = '' } = request.params || request.query;
+      const supplierCode = request.params.supplierCode || request.query.supplierCode || '';
       //const { id: credentialId } = request.auth.credentials;
 
       //await this._service.verifySuppliersAccess(id, credentialId);
