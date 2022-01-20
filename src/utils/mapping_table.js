@@ -175,6 +175,18 @@ const mapPackingToModel = ({
   shipNo: shipno,
 });
 
+const mapReceivingToModel = ({
+  id, companyid, idfish, grade, weight, supplierid, rcvdatetime,
+}) => ({
+  id, 
+  companyCode: companyid, 
+  fishId: idfish, 
+  grade, 
+  weight, 
+  supplierCode: supplierid, 
+  rcvDatetime: rcvdatetime, 
+});
+
 module.exports = {
   mapBuyerToModel, 
   mapCompanyToModel, 
@@ -188,4 +200,5 @@ module.exports = {
   mapCuttingToModel,
   mapLandingToModel,
   mapPackingToModel,
+  mapReceivingToModel,
 };
