@@ -55,25 +55,30 @@ const catchfish = require('./api/catch-fish');
 const CatchFishService = require('./services/mysql/CatchFishService');
 const CatchFishValidator = require('./validator/catch-fish');
 
-// Cuttings
-const cuttings = require('./api/cuttings');
-const CuttingsService = require('./services/mysql/CuttingsService');
-const CuttingsValidator = require('./validator/cuttings');
-
 // Landings
 const landings = require('./api/landings');
 const LandingsService = require('./services/mysql/LandingsService');
 const LandingsValidator = require('./validator/landings');
+
+// Receivings
+const receivings = require('./api/receivings');
+const ReceivingsService = require('./services/mysql/ReceivingsService');
+const ReceivingsValidator = require('./validator/receivings');
+
+// Cuttings
+const cuttings = require('./api/cuttings');
+const CuttingsService = require('./services/mysql/CuttingsService');
+const CuttingsValidator = require('./validator/cuttings');
 
 // Packings
 const packings = require('./api/packings');
 const PackingsService = require('./services/mysql/PackingsService');
 const PackingsValidator = require('./validator/packings');
 
-// Receivings
-const receivings = require('./api/receivings');
-const ReceivingsService = require('./services/mysql/ReceivingsService');
-const ReceivingsValidator = require('./validator/receivings');
+// Packings
+const shippings = require('./api/shippings');
+const ShippingsService = require('./services/mysql/ShippingsService');
+const ShippingsValidator = require('./validator/shippings');
 
 // Authentications
 const authentications = require('./api/authentications');
@@ -98,6 +103,7 @@ const init = async () => {
   const landingsService = new LandingsService();
   const packingsService = new PackingsService();
   const receivingsService = new ReceivingsService();
+  const shippingsService = new ShippingsService();
   const authenticationsService = new AuthenticationsService();
 
   const server = Hapi.server({
@@ -235,6 +241,13 @@ const init = async () => {
       options: {
         service: packingsService,
         validator: PackingsValidator,
+      },
+    },
+    {
+      plugin: shippings,
+      options: {
+        service: shippingsService,
+        validator: ShippingsValidator,
       },
     },
     {

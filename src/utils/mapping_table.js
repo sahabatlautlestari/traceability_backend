@@ -187,6 +187,17 @@ const mapReceivingToModel = ({
   rcvDatetime: rcvdatetime, 
 });
 
+const mapShippingToModel = ({
+  id, shipno, shipdate, idbuyer, voyageno, containerno,
+}) => ({
+  id, 
+  shipNo: shipno, 
+  shipDate: shipdate, 
+  buyerCode: idbuyer, 
+  voyageNo: voyageno, 
+  containerNo: containerno,
+});
+
 module.exports = {
   mapBuyerToModel, 
   mapCompanyToModel, 
@@ -201,4 +212,5 @@ module.exports = {
   mapLandingToModel,
   mapPackingToModel,
   mapReceivingToModel,
+  mapShippingToModel,
 };
