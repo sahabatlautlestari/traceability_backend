@@ -65,6 +65,11 @@ const landings = require('./api/landings');
 const LandingsService = require('./services/mysql/LandingsService');
 const LandingsValidator = require('./validator/landings');
 
+// Packings
+const packings = require('./api/packings');
+const PackingsService = require('./services/mysql/PackingsService');
+const PackingsValidator = require('./validator/packings');
+
 // Authentications
 const authentications = require('./api/authentications');
 const AuthenticationsService = require('./services/mysql/AuthenticationsService');
@@ -86,6 +91,7 @@ const init = async () => {
   const catchFishService = new CatchFishService();
   const cuttingsService = new CuttingsService();
   const landingsService = new LandingsService();
+  const packingsService = new PackingsService();
   const authenticationsService = new AuthenticationsService();
 
   const server = Hapi.server({
@@ -209,6 +215,13 @@ const init = async () => {
       options: {
         service: landingsService,
         validator: LandingsValidator,
+      },
+    },
+    {
+      plugin: packings,
+      options: {
+        service: packingsService,
+        validator: PackingsValidator,
       },
     },
     {
