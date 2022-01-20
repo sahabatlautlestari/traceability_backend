@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const CatchFishPayloadSchema = Joi.object({
-  fishCode: Joi.string().required(),
+  fishId: Joi.string().required(),
   location: Joi.object().required(),
   datetime: Joi.date().required(),
   vesselCode: Joi.string().required(),

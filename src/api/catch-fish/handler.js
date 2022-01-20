@@ -8,7 +8,7 @@ class CatchFishHandler {
 
     this.postCatchFishHandler = this.postCatchFishHandler.bind(this);
     this.getCatchFishHandler = this.getCatchFishHandler.bind(this);
-    this.getCatchFishByFishCodeHandler = this.getCatchFishByFishCodeHandler.bind(this);
+    this.getCatchFishByFishIdHandler = this.getCatchFishByFishIdHandler.bind(this);
     this.getCatchFishByIdHandler = this.getCatchFishByIdHandler.bind(this);
     this.putCatchFishByIdHandler = this.putCatchFishByIdHandler.bind(this);
     this.deleteCatchFishByIdHandler = this.deleteCatchFishByIdHandler.bind(this);
@@ -101,13 +101,13 @@ class CatchFishHandler {
     }
   }
   
-  async getCatchFishByFishCodeHandler(request, h) {
+  async getCatchFishByFishIdHandler(request, h) {
     try {
-      const fishCode = request.params.fishCode || request.query.fishCode || '';
+      const fishId = request.params.fishId || request.query.fishId || '';
       //const { id: credentialId } = request.auth.credentials;
 
       //await this._service.verifyCatchFishAccess(id, credentialId);
-      const catchFish = await this._service.getCatchFishByFishCode(fishCode);
+      const catchFish = await this._service.getCatchFishByFishId(fishId);
 
       return {
         status: 'success',

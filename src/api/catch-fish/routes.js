@@ -16,8 +16,8 @@ const routes = (handler) => [
   },
   {
     method: 'GET',
-    path: '/catch/code/{fishCode}',
-    handler: handler.getCatchFishByFishCodeHandler,
+    path: '/catch/fish/{fishId}',
+    handler: handler.getCatchFishByFishIdHandler,
   },
   {
     method: 'PUT',

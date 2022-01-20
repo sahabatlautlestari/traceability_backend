@@ -130,7 +130,7 @@ const mapCatchFishToModel = ({
   idspecies,
 }) => ({
   id,
-  fishCode: idfish, 
+  fishId: idfish, 
   location: clocation, 
   datetime: cdatetime, 
   cesselCode: vesselid, 

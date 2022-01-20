@@ -9,11 +9,11 @@ class CatchFishService {
     this._pool = pool;
   }
 
-  async addCatchFish({ fishCode, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
-    await this.verifyNewcatchFishCode(fishCode);
+  async addCatchFish({ fishId, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
+    await this.verifyNewcatchFishCode(fishId);
 
     const [result] = await this._pool.query('INSERT INTO tbcatchfish (idfish, clocation, cdatetime, vesselid, idfishinggear, idspecies) VALUES (?, ?, ?, ?)',
-    [ fishCode, location, datetime, vesselCode, fishingGearCode, speciesCode ]);
+    [ fishId, location, datetime, vesselCode, fishingGearCode, speciesCode ]);
     
     if (!result) {
       throw new InvariantError('Failed to save new CatchFish');
@@ -21,19 +21,19 @@ class CatchFishService {
     return result.insertId;
   }
 
-  async verifyNewcatchFishCode(fishCode) {
+  async verifyNewcatchFishCode(fishId) {
 
-    const [rows] = await this._pool.query('SELECT idfish FROM tbcatchfish WHERE idfish = ?', [fishCode]);
+    const [rows] = await this._pool.query('SELECT idfish FROM tbcatchfish WHERE idfish = ?', [fishId]);
     
     if(rows.length > 0) {
       throw new InvariantError('Failed to add Catch Fish data. Fish Code already used.')
     };
   }
 
-  async editCatchFishById(id, { fishCode, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
+  async editCatchFishById(id, { fishId, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
 
     const [result] = await this._pool.query('UPDATE tbcatchfish SET idfish = ?, CatchFishname  = ?, CatchFishize = ?, fisherman = ? WHERE id = ?',
-    [fishCode, location, datetime, vesselCode, fishingGearCode, speciesCode , id]);
+    [fishId, location, datetime, vesselCode, fishingGearCode, speciesCode , id]);
 
     if (result.affectedRows === 0) {
       throw new InvariantError('Failed to update Catch Fish data. ID not found.');
@@ -67,9 +67,9 @@ class CatchFishService {
     return result.map(mapCatchFishToModel)[0];
   }
 
-  async getCatchFishByFishCode(fishCode) {
+  async getCatchFishByFishId(fishId) {
 
-    const [result] = await this._pool.query('SELECT id, idfish, clocation, cdatetime, vesselid, idfishinggear, idspecies FROM tbcatchfish WHERE idfish = ?', [fishCode]);
+    const [result] = await this._pool.query('SELECT id, idfish, clocation, cdatetime, vesselid, idfishinggear, idspecies FROM tbcatchfish WHERE idfish = ?', [fishId]);
     
     if (result.length === 0) {
       throw new NotFoundError('Catch Fish not found');
