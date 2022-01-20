@@ -150,6 +150,18 @@ const mapCuttingToModel = ({
   caseNumber: casenumber, 
 });
 
+const mapLandingToModel = ({
+  id, idfish, portid, ldatetime, supplierid, weight, fishlength, 
+}) => ({
+  id,
+  fishId: idfish, 
+  portCode: portid, 
+  datetime: ldatetime, 
+  supplierCode: supplierid,
+  weight,
+  fishLength: fishlength, 
+});
+
 module.exports = {
   mapBuyerToModel, 
   mapCompanyToModel, 
@@ -161,4 +173,5 @@ module.exports = {
   mapSpottraceToModel,
   mapCatchFishToModel,
   mapCuttingToModel,
+  mapLandingToModel,
 };
