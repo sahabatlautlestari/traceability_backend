@@ -55,6 +55,11 @@ const catchfish = require('./api/catch-fish');
 const CatchFishService = require('./services/mysql/CatchFishService');
 const CatchFishValidator = require('./validator/catch-fish');
 
+// Cuttings
+const cuttings = require('./api/cuttings');
+const CuttingsService = require('./services/mysql/CuttingsService');
+const CuttingsValidator = require('./validator/cuttings');
+
 // Authentications
 const authentications = require('./api/authentications');
 const AuthenticationsService = require('./services/mysql/AuthenticationsService');
@@ -74,6 +79,7 @@ const init = async () => {
   const vesselsService = new VesselsService();
   const spottracesService = new SpottracesService();
   const catchFishService = new CatchFishService();
+  const cuttingsService = new CuttingsService();
   const authenticationsService = new AuthenticationsService();
 
   const server = Hapi.server({
@@ -183,6 +189,13 @@ const init = async () => {
       options: {
         service: catchFishService,
         validator: CatchFishValidator,
+      },
+    },
+    {
+      plugin: cuttings,
+      options: {
+        service: cuttingsService,
+        validator: CuttingsValidator,
       },
     },
     {

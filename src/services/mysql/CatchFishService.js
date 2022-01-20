@@ -12,7 +12,7 @@ class CatchFishService {
   async addCatchFish({ fishId, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
     await this.verifyNewcatchFishCode(fishId);
 
-    const [result] = await this._pool.query('INSERT INTO tbcatchfish (idfish, clocation, cdatetime, vesselid, idfishinggear, idspecies) VALUES (?, ?, ?, ?)',
+    const [result] = await this._pool.query('INSERT INTO tbcatchfish (idfish, clocation, cdatetime, vesselid, idfishinggear, idspecies) VALUES (?, ?, ?, ?, ?, ?)',
     [ fishId, location, datetime, vesselCode, fishingGearCode, speciesCode ]);
     
     if (!result) {
@@ -32,7 +32,7 @@ class CatchFishService {
 
   async editCatchFishById(id, { fishId, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
 
-    const [result] = await this._pool.query('UPDATE tbcatchfish SET idfish = ?, CatchFishname  = ?, CatchFishize = ?, fisherman = ? WHERE id = ?',
+    const [result] = await this._pool.query('UPDATE tbcatchfish SET idfish = ?, clocation = ?, cdatetime = ?, vesselid = ?, idfishinggear = ?, idspecies = ? WHERE id = ?',
     [fishId, location, datetime, vesselCode, fishingGearCode, speciesCode , id]);
 
     if (result.affectedRows === 0) {

@@ -138,6 +138,18 @@ const mapCatchFishToModel = ({
   speciesCode: idspecies,
 });
 
+const mapCuttingToModel = ({
+  id, idfish, idloin, weight, cutdate, grade, casenumber,
+}) => ({
+  id,
+  fishId: idfish, 
+  loinId: idloin, 
+  weight,
+  cutDate: cutdate, 
+  grade,
+  caseNumber: casenumber, 
+});
+
 module.exports = {
   mapBuyerToModel, 
   mapCompanyToModel, 
@@ -148,4 +160,5 @@ module.exports = {
   mapVesselToModel,
   mapSpottraceToModel,
   mapCatchFishToModel,
+  mapCuttingToModel,
 };
