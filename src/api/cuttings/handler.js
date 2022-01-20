@@ -26,7 +26,7 @@ class CuttingsHandler {
 
       const response = h.response({
         status: 'success',
-        message: 'Fishing Gear added successfully',
+        message: 'Cutting added successfully',
         data: {
           cuttingId,
         },
@@ -147,7 +147,7 @@ class CuttingsHandler {
 
       return {
         status: 'success',
-        message: 'Fishing Gear successfully updated',
+        message: 'Cutting successfully updated',
       };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -181,7 +181,7 @@ class CuttingsHandler {
 
       return {
         status: 'success',
-        message: 'Fishing Gear successfully deleted',
+        message: 'Cutting successfully deleted',
       };
     } catch (error) {
       if (error instanceof ClientError) {

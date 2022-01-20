@@ -26,7 +26,7 @@ class SuppliersHandler {
 
       const response = h.response({
         status: 'success',
-        message: 'Fishing Gear added successfully',
+        message: 'Supplier added successfully',
         data: {
           supplierId,
         },
@@ -147,7 +147,7 @@ class SuppliersHandler {
 
       return {
         status: 'success',
-        message: 'Fishing Gear successfully updated',
+        message: 'Supplier successfully updated',
       };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -181,7 +181,7 @@ class SuppliersHandler {
 
       return {
         status: 'success',
-        message: 'Fishing Gear successfully deleted',
+        message: 'Supplier successfully deleted',
       };
     } catch (error) {
       if (error instanceof ClientError) {

@@ -26,7 +26,7 @@ class VesselsHandler {
 
       const response = h.response({
         status: 'success',
-        message: 'Fishing Gear added successfully',
+        message: 'Vessel added successfully',
         data: {
           vesselId,
         },
@@ -147,7 +147,7 @@ class VesselsHandler {
 
       return {
         status: 'success',
-        message: 'Fishing Gear successfully updated',
+        message: 'Vessel successfully updated',
       };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -181,7 +181,7 @@ class VesselsHandler {
 
       return {
         status: 'success',
-        message: 'Fishing Gear successfully deleted',
+        message: 'Vessel successfully deleted',
       };
     } catch (error) {
       if (error instanceof ClientError) {
