@@ -12,7 +12,12 @@ const routes = (handler) => [
   {
     method: 'GET',
     path: '/companies',
-    handler: handler.getCompaniesByCompanyCodeHandler,
+    handler: handler.getCompaniesHandler,
+  },
+  {
+    method: 'GET',
+    path: '/companies/code/{companyCode}',
+    handler: handler.getCompanyByCompanyCodeHandler,
   },
   {
     method: 'PUT',

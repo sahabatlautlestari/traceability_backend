@@ -12,8 +12,8 @@ class CatchFishService {
   async addCatchFish({ fishId, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
     await this.verifyNewcatchFishCode(fishId);
 
-    const [result] = await this._pool.query('INSERT INTO tbcatchfish (idfish, clocation, cdatetime, vesselid, idfishinggear, idspecies) VALUES (?, ?, ?, ?, ?, ?)',
-    [ fishId, location, datetime, vesselCode, fishingGearCode, speciesCode ]);
+    const [result] = await this._pool.query('INSERT INTO tbcatchfish (idfish, clocation, cdatetime, vesselid, idfishinggear, idspecies) VALUES (?, GeomFromText(?), ?, ?, ?, ?)',
+    [ fishId, `POINT(${location.latitude} ${location.longitude})`, datetime, vesselCode, fishingGearCode, speciesCode ]);
     
     if (!result) {
       throw new InvariantError('Failed to save new CatchFish');
@@ -32,8 +32,8 @@ class CatchFishService {
 
   async editCatchFishById(id, { fishId, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
 
-    const [result] = await this._pool.query('UPDATE tbcatchfish SET idfish = ?, clocation = ?, cdatetime = ?, vesselid = ?, idfishinggear = ?, idspecies = ? WHERE id = ?',
-    [fishId, location, datetime, vesselCode, fishingGearCode, speciesCode , id]);
+    const [result] = await this._pool.query('UPDATE tbcatchfish SET idfish = ?, clocation = GeomFromText(?), cdatetime = ?, vesselid = ?, idfishinggear = ?, idspecies = ? WHERE id = ?',
+    [fishId, `POINT(${location.latitude} ${location.longitude})`, datetime, vesselCode, fishingGearCode, speciesCode , id]);
 
     if (result.affectedRows === 0) {
       throw new InvariantError('Failed to update Catch Fish data. ID not found.');

@@ -8,7 +8,7 @@ class CompaniesHandler {
 
     this.postCompanyHandler = this.postCompanyHandler.bind(this);
     this.getCompaniesHandler = this.getCompaniesHandler.bind(this);
-    this.getCompaniesByCompanyCodeHandler = this.getCompaniesByCompanyCodeHandler.bind(this);
+    this.getCompanyByCompanyCodeHandler = this.getCompanyByCompanyCodeHandler.bind(this);
     this.getCompanyByIdHandler = this.getCompanyByIdHandler.bind(this);
     this.putCompanyByIdHandler = this.putCompanyByIdHandler.bind(this);
     this.deleteCompanyByIdHandler = this.deleteCompanyByIdHandler.bind(this);
@@ -101,18 +101,18 @@ class CompaniesHandler {
     }
   }
   
-  async getCompaniesByCompanyCodeHandler(request, h) {
+  async getCompanyByCompanyCodeHandler(request, h) {
     try {
       const companyCode = request.query.companyCode || request.params.companyCode || '';
       //const { id: credentialId } = request.auth.credentials;
 
       //await this._service.verifyCompaniesAccess(id, credentialId);
-      const companies = await this._service.getCompaniesByCompanyCode(companyCode);
+      const company = await this._service.getCompanyByCompanyCode(companyCode);
 
       return {
         status: 'success',
         data: {
-          companies,
+          company,
         },
       };
     } catch (error) {

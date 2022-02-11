@@ -67,10 +67,15 @@ class CompaniesService {
     return result.map(mapCompanyToModel)[0];
   }
 
-  async getCompaniesByCompanyCode(companyCode) {
+  async getCompanyByCompanyCode(companyCode) {
 
-    const [result] = await this._pool.query('SELECT id, companyid, companyname, location FROM mcompany WHERE companyid LIKE ?', [`%${companyCode}%`]);
-    return result.map(mapCompanyToModel);
+    const [result] = await this._pool.query('SELECT id, companyid, companyname, location FROM mcompany WHERE companyid = ?', [companyCode]);
+    
+    if (result.length === 0) {
+      throw new NotFoundError('Company not found');
+    }
+    
+    return result.map(mapCompanyToModel)[0];
   }
 }
 
