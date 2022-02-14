@@ -15,7 +15,6 @@ class TracesService {
     if (result.length === 0) {
       throw new NotFoundError('Tracing data not found');
     }
-    console.log(result);
     return result[0].map(mapTracingToModel);
   }
 }
