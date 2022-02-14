@@ -8,7 +8,7 @@ class CatchFishHandler {
 
     this.postCatchFishHandler = this.postCatchFishHandler.bind(this);
     this.getCatchFishHandler = this.getCatchFishHandler.bind(this);
-    this.getCatchFishByFishIdHandler = this.getCatchFishByFishIdHandler.bind(this);
+    this.getCatchFishByCatchIdHandler = this.getCatchFishByCatchIdHandler.bind(this);
     this.getCatchFishByIdHandler = this.getCatchFishByIdHandler.bind(this);
     this.putCatchFishByIdHandler = this.putCatchFishByIdHandler.bind(this);
     this.deleteCatchFishByIdHandler = this.deleteCatchFishByIdHandler.bind(this);
@@ -17,11 +17,11 @@ class CatchFishHandler {
   async postCatchFishHandler(request, h) {
     try {
       this._validator.validateCatchFishPayload(request.payload);
-      const { fishCode, location, datetime, vesselCode, fishingGearCode, speciesCode } = request.payload;
+      const { catchId, location, datetime, vesselCode, fishingGearCode, speciesCode } = request.payload;
       //const { id: credentialId } = request.auth.credentials;
 
       const catchFishId = await this._service.addCatchFish({
-        fishCode, location, datetime, vesselCode, fishingGearCode, speciesCode,
+        catchId, location, datetime, vesselCode, fishingGearCode, speciesCode,
       });
 
       const response = h.response({
@@ -101,7 +101,7 @@ class CatchFishHandler {
     }
   }
   
-  async getCatchFishByFishIdHandler(request, h) {
+  async getCatchFishByCatchIdHandler(request, h) {
     try {
       const fishId = request.params.fishId || request.query.fishId || '';
       //const { id: credentialId } = request.auth.credentials;

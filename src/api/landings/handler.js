@@ -17,11 +17,11 @@ class LandingsHandler {
   async postLandingHandler(request, h) {
     try {
       this._validator.validateLandingPayload(request.payload);
-      const { fishId, portCode, datetime, supplierCode, weight, fishLength } = request.payload;
+      const { catchId, fishId, portCode, datetime, supplierCode, weight, fishLength } = request.payload;
       //const { id: credentialId } = request.auth.credentials;
 
       const landingId = await this._service.addLanding({
-        fishId, portCode, datetime, supplierCode, weight, fishLength,
+        catchId, fishId, portCode, datetime, supplierCode, weight, fishLength,
       });
 
       const response = h.response({
@@ -73,6 +73,41 @@ class LandingsHandler {
 
       //await this._service.verifyLandingAccess(id, credentialId);
       const landing = await this._service.getLandingById(id);
+
+      return {
+        status: 'success',
+        data: {
+          landing,
+        },
+      };
+    } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+        });
+        response.code(error.statusCode);
+        return response;
+      }
+
+      // SERVER ERROR
+      const response = h.response({
+        status: 'error',
+        message: 'Sorry, there was a failure on our server.',
+      });
+      response.code(500);
+      console.log(error);
+      return response;
+    }
+  }
+  
+  async getLandingByCatchIdHandler(request, h) {
+    try {
+      const catchId = request.params.catchId || request.query.catchId || '';
+      //const { id: credentialId } = request.auth.credentials;
+
+      //await this._service.verifyLandingsAccess(id, credentialId);
+      const landing = await this._service.getLandingByCatchId(catchId);
 
       return {
         status: 'success',

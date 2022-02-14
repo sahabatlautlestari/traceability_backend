@@ -1,6 +1,7 @@
 const Joi = require('joi');
 
 const LandingPayloadSchema = Joi.object({
+  catchId: Joi.string().required(),
   fishId: Joi.string().required(),
   portCode: Joi.string().required(),
   datetime: Joi.date(),

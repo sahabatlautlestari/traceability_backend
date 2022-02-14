@@ -20,6 +20,11 @@ const routes = (handler) => [
     handler: handler.getLandingByFishIdHandler,
   },
   {
+    method: 'GET',
+    path: '/landings/catch/{catchId}',
+    handler: handler.getLandingByCatchIdHandler,
+  },
+  {
     method: 'PUT',
     path: '/landings/{id}',
     handler: handler.putLandingByIdHandler,

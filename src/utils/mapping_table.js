@@ -122,20 +122,24 @@ const mapSpottraceToModel = ({
 
 const mapCatchFishToModel = ({
   id, 
-  idfish, 
+  catchid, 
   clocation, 
   cdatetime, 
   vesselid, 
   idfishinggear, 
   idspecies,
+  createddate,
+  moddatetime,
 }) => ({
   id,
-  fishId: idfish, 
+  catchId: catchid, 
   location: clocation, 
   datetime: cdatetime, 
   cesselCode: vesselid, 
   fishingGearCode: idfishinggear, 
   speciesCode: idspecies,
+  createdDate: createddate,
+  updatedDate: moddatetime,
 });
 
 const mapCuttingToModel = ({
@@ -151,9 +155,10 @@ const mapCuttingToModel = ({
 });
 
 const mapLandingToModel = ({
-  id, idfish, portid, ldatetime, supplierid, weight, fishlength, 
+  id, catchid, idfish, portid, ldatetime, supplierid, weight, fishlength, 
 }) => ({
   id,
+  catchId: catchid, 
   fishId: idfish, 
   portCode: portid, 
   datetime: ldatetime, 

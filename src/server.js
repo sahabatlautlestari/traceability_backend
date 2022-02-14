@@ -75,10 +75,14 @@ const packings = require('./api/packings');
 const PackingsService = require('./services/mysql/PackingsService');
 const PackingsValidator = require('./validator/packings');
 
-// Packings
+// Shippings
 const shippings = require('./api/shippings');
 const ShippingsService = require('./services/mysql/ShippingsService');
 const ShippingsValidator = require('./validator/shippings');
+
+// Tracings
+const traces = require('./api/traces');
+const TracesService = require('./services/mysql/TracesService');
 
 // Authentications
 const authentications = require('./api/authentications');
@@ -104,6 +108,7 @@ const init = async () => {
   const packingsService = new PackingsService();
   const receivingsService = new ReceivingsService();
   const shippingsService = new ShippingsService();
+  const tracesService = new TracesService();
   const authenticationsService = new AuthenticationsService();
 
   const server = Hapi.server({
@@ -248,6 +253,12 @@ const init = async () => {
       options: {
         service: shippingsService,
         validator: ShippingsValidator,
+      },
+    },
+    {
+      plugin: traces,
+      options: {
+        service: tracesService,
       },
     },
     {

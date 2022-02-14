@@ -9,11 +9,11 @@ class CatchFishService {
     this._pool = pool;
   }
 
-  async addCatchFish({ fishId, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
-    await this.verifyNewcatchFishCode(fishId);
+  async addCatchFish({ catchId, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
+    await this.verifyNewCatchCode(catchId);
 
-    const [result] = await this._pool.query('INSERT INTO tbcatchfish (idfish, clocation, cdatetime, vesselid, idfishinggear, idspecies) VALUES (?, GeomFromText(?), ?, ?, ?, ?)',
-    [ fishId, `POINT(${location.latitude} ${location.longitude})`, datetime, vesselCode, fishingGearCode, speciesCode ]);
+    const [result] = await this._pool.query('INSERT INTO tbcatchfish (catchid, clocation, cdatetime, vesselid, idfishinggear, idspecies) VALUES (?, GeomFromText(?), ?, ?, ?, ?)',
+    [ catchId, `POINT(${location.latitude} ${location.longitude})`, datetime, vesselCode, fishingGearCode, speciesCode ]);
     
     if (!result) {
       throw new InvariantError('Failed to save new CatchFish');
@@ -21,19 +21,19 @@ class CatchFishService {
     return result.insertId;
   }
 
-  async verifyNewcatchFishCode(fishId) {
+  async verifyNewCatchCode(catchId) {
 
-    const [rows] = await this._pool.query('SELECT idfish FROM tbcatchfish WHERE idfish = ?', [fishId]);
+    const [rows] = await this._pool.query('SELECT catchid FROM tbcatchfish WHERE catchid = ?', [catchId]);
     
     if(rows.length > 0) {
       throw new InvariantError('Failed to add Catch Fish data. Fish Code already used.')
     };
   }
 
-  async editCatchFishById(id, { fishId, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
+  async editCatchFishById(id, { catchId, location, datetime, vesselCode, fishingGearCode, speciesCode  }) {
 
-    const [result] = await this._pool.query('UPDATE tbcatchfish SET idfish = ?, clocation = GeomFromText(?), cdatetime = ?, vesselid = ?, idfishinggear = ?, idspecies = ? WHERE id = ?',
-    [fishId, `POINT(${location.latitude} ${location.longitude})`, datetime, vesselCode, fishingGearCode, speciesCode , id]);
+    const [result] = await this._pool.query('UPDATE tbcatchfish SET catchid = ?, clocation = GeomFromText(?), cdatetime = ?, vesselid = ?, idfishinggear = ?, idspecies = ? WHERE id = ?',
+    [catchId, `POINT(${location.latitude} ${location.longitude})`, datetime, vesselCode, fishingGearCode, speciesCode , id]);
 
     if (result.affectedRows === 0) {
       throw new InvariantError('Failed to update Catch Fish data. ID not found.');
@@ -53,12 +53,12 @@ class CatchFishService {
   }
 
   async getCatchFish() {
-    const [result] = await this._pool.query('SELECT id, idfish, clocation, cdatetime, vesselid, idfishinggear, idspecies FROM tbcatchfish');
+    const [result] = await this._pool.query('SELECT id, catchid, clocation, cdatetime, vesselid, idfishinggear, idspecies FROM tbcatchfish');
     return result.map(mapCatchFishToModel);
   }
 
   async getCatchFishById(id) {
-    const [result] = await this._pool.query('SELECT id, idfish, clocation, cdatetime, vesselid, idfishinggear, idspecies FROM tbcatchfish WHERE id = ?', [id]);
+    const [result] = await this._pool.query('SELECT id, catchid, clocation, cdatetime, vesselid, idfishinggear, idspecies FROM tbcatchfish WHERE id = ?', [id]);
 
     if (result.length === 0) {
       throw new NotFoundError('Catch Fish not found');
@@ -67,9 +67,9 @@ class CatchFishService {
     return result.map(mapCatchFishToModel)[0];
   }
 
-  async getCatchFishByFishId(fishId) {
+  async getCatchFishBycatchId(catchId) {
 
-    const [result] = await this._pool.query('SELECT id, idfish, clocation, cdatetime, vesselid, idfishinggear, idspecies FROM tbcatchfish WHERE idfish = ?', [fishId]);
+    const [result] = await this._pool.query('SELECT id, catchid, clocation, cdatetime, vesselid, idfishinggear, idspecies FROM tbcatchfish WHERE catchid = ?', [catchId]);
     
     if (result.length === 0) {
       throw new NotFoundError('Catch Fish not found');
