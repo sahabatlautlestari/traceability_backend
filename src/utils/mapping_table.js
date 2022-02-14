@@ -133,7 +133,11 @@ const mapCatchFishToModel = ({
 }) => ({
   id,
   catchId: catchid, 
-  location: clocation, 
+  
+  location: {
+    latitude: clocation.x,
+    longitude: clocation.y
+  }, 
   datetime: cdatetime, 
   cesselCode: vesselid, 
   fishingGearCode: idfishinggear, 
@@ -203,6 +207,15 @@ const mapShippingToModel = ({
   containerNo: containerno,
 });
 
+const mapTracingToModel = ({
+  no, stage, id, product, datein, location, weight, subject, note, coordinate,
+}) => ({
+  no, stage, id, product, datein, location, weight, subject, note, coordinate: {    
+    latitude: coordinate.x,
+    longitude: coordinate.y
+  },
+});
+
 module.exports = {
   mapBuyerToModel, 
   mapCompanyToModel, 
@@ -218,4 +231,5 @@ module.exports = {
   mapPackingToModel,
   mapReceivingToModel,
   mapShippingToModel,
+  mapTracingToModel,
 };

@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 const pool = require('../../utils/connection_pool');
 const NotFoundError = require('../../exceptions/NotFoundError');
+const { mapTracingToModel } = require('../../utils/mapping_table');
 
 class TracesService {
   constructor() {
@@ -15,7 +16,7 @@ class TracesService {
       throw new NotFoundError('Tracing data not found');
     }
     
-    return result;
+    return result.map(mapTracingToModel);
   }
 }
 
