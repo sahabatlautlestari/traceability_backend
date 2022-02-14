@@ -211,8 +211,8 @@ const mapTracingToModel = ({
   no, stage, id, product, datein, location, weight, subject, note, coordinate,
 }) => ({
   no, stage, id, product, datein, location, weight, subject, note, coordinate: {    
-    latitude: coordinate.x,
-    longitude: coordinate.y
+    latitude: parseFloat(coordinate.x.toFixed(5)),
+    longitude: parseFloat(coordinate.y.toFixed(5)),
   },
 });
 
