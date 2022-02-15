@@ -116,8 +116,8 @@ const init = async () => {
     port: process.env.PORT,
     host: process.env.HOST,
     tls: {
-      key: fs.readFileSync('../server-key.pem'),
-      cert: fs.readFileSync('../server-cert.pem')
+      key: fs.readFileSync('server-key.pem'),
+      cert: fs.readFileSync('server-cert.pem')
     },
     routes: {
       cors: {
